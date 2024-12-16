@@ -1,42 +1,56 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
+
 import PostStyleModule from "../../styles/Post.module.css";
 import { Comment } from "../Comment/Comment";
+import { Avatar } from "../Avatar/Avatar";
 
-function Post(porps) {
+function Post({ author, publishedAt, content }) {
+  const publishedDateFormated = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+
+  const publishDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+
   return (
     <article className={PostStyleModule.post}>
       <header>
         <div className={PostStyleModule.author}>
-          <img
-            src="https://github.com/souzalipe.png"
-            className={PostStyleModule.avatar}
-          />
+          <Avatar src={author.avatarUrl} />
+
           <div className={PostStyleModule.authorInfo}>
-            <strong>Felipe Souza</strong>
-            <span>Web Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="Publicado em 06 de Dezembro" dateTime="06/12/24">
-          Publicado hà 1
+        <time
+          title={publishedDateFormated}
+          dateTime={publishedAt.toISOString()}
+        >
+          {publishDateRelativeToNow}
         </time>
       </header>
 
       <div className={PostStyleModule.content}>
-        <p>Fala galeraa 👋</p>
-
-        <p>
-          Acabei de subir mais um projeto no meu portifa. É um projeto que fiz
-          no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
-        </p>
-
-        <p>
-          👉 <a href="#"> jane.design/doctorcare</a>
-        </p>
-
-        <p>
-          <a href="#">#novoprojeto</a> <a href="#">#nlw</a>{" "}
-          <a href="#">#rocketseat</a>{" "}
-        </p>
+        {content.map((line) => {
+          if (line.type === "pharagraph") {
+            return <p>{line.content}</p>;
+          } else if (line.type === "link") {
+            return (
+              <p>
+                <a href="#">{line.content}</a>
+              </p>
+            );
+          }
+        })}
       </div>
 
       <form className={PostStyleModule.comentForm}>

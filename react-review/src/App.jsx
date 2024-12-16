@@ -2,8 +2,50 @@ import Header from "./components/Header/Header";
 import Post from "./components/Post/Post";
 import SideBar from "./components/SideBar/SideBar";
 
-import AppStylesModule from "./styles/App.module.css"
-import "./styles/global.css"
+import AppStylesModule from "./styles/App.module.css";
+import "./styles/global.css";
+
+// author: { avatar_url: "", name: "", role: ""}
+// publishedAt: Date
+// content: string
+
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/souzalipe.png",
+      name: "Felipe Souza",
+      role: "Programadores do Amanhã",
+    },
+    content: [
+      { type: "pharagraph", content: "Fala galeraa 👋" },
+      {
+        type: "pharagraph",
+        content: "Acabei de subir mais um projeto no meu portifólio. É um projeto que fiz",
+      },
+      { type: "link", content: "jane.design/doctorcare" },
+    ],
+    publishedAt: new Date("2024-12-03 20:00"),
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: "https://github.com/brenddamachado.png",
+      name: "Brenda Machado",
+      role: "L'oréal Brasil",
+    },
+    content: [
+      { type: "pharagraph", content: "Conquista Realizada ✨" },
+      {
+        type: "pharagraph",
+        content:
+          "Hoje compartilho uma marco no meu perfil, vão dar uma olhada 👀",
+      },
+      { type: "link", content: "https://github.com/brenddamachado" },
+    ],
+    publishedAt: new Date("2024-12-06 20:00"),
+  },
+];
 
 function App() {
   return (
@@ -13,9 +55,15 @@ function App() {
       <div className={AppStylesModule.wrapper}>
         <SideBar />
         <main>
-          <Post author="Felipe Nascimento" content="Meu primeiro post" />
-
-          
+          {posts.map((post) => {
+            return (
+            <Post 
+              author={post.author}
+              content={post.content}
+              publishedAt={post.publishedAt}
+            />
+          )
+          })}
         </main>
       </div>
     </div>
