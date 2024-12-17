@@ -23,7 +23,7 @@ const posts = [
         type: "pharagraph",
         content: "Acabei de subir mais um projeto no meu portifólio. É um projeto que fiz",
       },
-      { type: "link", content: "jane.design/doctorcare" },
+      { type: "link", content: "https://github.com/souzalipe" },
     ],
     publishedAt: new Date("2024-12-03 20:00"),
   },
