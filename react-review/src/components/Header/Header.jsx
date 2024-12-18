@@ -5,6 +5,7 @@ const Header = () =>{
     return(
         <header className={style.header}>
             <img src={igniteLogo} alt="logo do Ingnite" />
+            <h2>Ignite</h2>
         </header>
     )
 }
