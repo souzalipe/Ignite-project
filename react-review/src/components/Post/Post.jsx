@@ -6,27 +6,31 @@ import { Comment } from "../Comment/Comment";
 import { Avatar } from "../Avatar/Avatar";
 import { useState } from "react";
 
-
 function Post({ author, publishedAt, content }) {
+  const [comments, setComments] = useState(["Post maravilhoso!!!"]);
 
-  const [comments,setComments] = useState([
-    "Post maravilhoso!!!"
-  ])
+  const [newCommentText, setNewCommentText] = useState("");
 
-  const [newCommentText, setNewCommentText] = useState('')
+  function handleCreateNewComment() {
+    const newCommentText = event.target.coment.value;
 
-  function handleCreateNewComment()  {
-    const newCommentText = event.target.coment.value
-
-    event.preventDefault()
+    event.preventDefault();
 
     setComments([...comments, newCommentText]);
-    setNewCommentText("")
-
+    setNewCommentText("");
   }
 
   function handleCreateNewCommentChange() {
-    setNewCommentText(event.target.value)
+    setNewCommentText(event.target.value);
+  }
+
+  function deleteComment(commentsToDelete) {
+
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      return comment !== commentsToDelete;
+    })
+
+    setComments(commentsWithoutDeletedOne);
   }
 
   const publishedDateFormated = format(
@@ -65,10 +69,10 @@ function Post({ author, publishedAt, content }) {
       <div className={PostStyleModule.content}>
         {content.map((line) => {
           if (line.type === "pharagraph") {
-            return <p>{line.content}</p>;
+            return <p key={line.content}>{line.content}</p>;
           } else if (line.type === "link") {
             return (
-              <p>
+              <p key={line.content}>
                 <a href="#">{line.content}</a>
               </p>
             );
@@ -96,7 +100,13 @@ function Post({ author, publishedAt, content }) {
 
       <div className={PostStyleModule.commentList}>
         {comments.map((comment) => {
-          return <Comment content={comment} />;
+          return (
+            <Comment
+              key={content}
+              content={comment}
+              onDeleteComment={deleteComment}
+            />
+          );
         })}
       </div>
     </article>

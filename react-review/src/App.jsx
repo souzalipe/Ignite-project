@@ -21,7 +21,8 @@ const posts = [
       { type: "pharagraph", content: "Fala galeraa 👋" },
       {
         type: "pharagraph",
-        content: "Acabei de subir mais um projeto no meu portifólio. É um projeto que fiz",
+        content:
+          "Acabei de subir mais um projeto no meu portifólio. É um projeto que fiz",
       },
       { type: "link", content: "https://github.com/souzalipe" },
     ],
@@ -57,12 +58,13 @@ function App() {
         <main>
           {posts.map((post) => {
             return (
-            <Post 
-              author={post.author}
-              content={post.content}
-              publishedAt={post.publishedAt}
-            />
-          )
+              <Post
+                key={post.id} // <= Qual a informação que dar uma identificação de qual post é qual?
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            );
           })}
         </main>
       </div>
