@@ -18,7 +18,7 @@ function Post({ author, publishedAt, content }) {
 
     event.preventDefault();
 
-    setComments([...comments, newCommentText]);
+    setComments([...comments, newCommentText]); // forma de adicionar um novo item a um array sem alterar o original 
     setNewCommentText("");
   }
 
