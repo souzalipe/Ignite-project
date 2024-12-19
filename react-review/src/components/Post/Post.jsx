@@ -2,8 +2,10 @@ import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
 
 import PostStyleModule from "../../styles/Post.module.css";
+
 import { Comment } from "../Comment/Comment";
 import { Avatar } from "../Avatar/Avatar";
+
 import { useState } from "react";
 
 function Post({ author, publishedAt, content }) {
@@ -21,7 +23,12 @@ function Post({ author, publishedAt, content }) {
   }
 
   function handleCreateNewCommentChange() {
+    event.target.setCustomValidity('')
     setNewCommentText(event.target.value);
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo é obrigatório!')
   }
 
   function deleteComment(commentsToDelete) {
@@ -45,6 +52,8 @@ function Post({ author, publishedAt, content }) {
     locale: ptBR,
     addSuffix: true,
   });
+
+  const isNewCommentEmpty = newCommentText.length == 0
 
   return (
     <article className={PostStyleModule.post}>
@@ -91,10 +100,14 @@ function Post({ author, publishedAt, content }) {
           value={newCommentText}
           placeholder="Deixe um comentário"
           onChange={handleCreateNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
