@@ -10,10 +10,10 @@ export function Comment({ content, onDeleteComment }) {
     onDeleteComment(content)
   }
 
-  // function handleLikeComment() { 
+  // function handleLikeComment() {  posso tanto usar a função direto no botão ou criar uma Arrow function para ela
   //   setlikeCount(likeCount + 1)
   // }
-
+ 
 
   return (
     <div className={CommentStyle.comment}>
